@@ -58,7 +58,7 @@ fn main() -> std::io::Result<()> {
     let file_1st = "1st.txt";
     let file_2nd = "2nd.txt";
 
-    println!("--- PART I -----------------------------------------");
+    println!("--- PART I ----------------------------------------");
     run(&file_1st, 1);
     run(&file_2nd, 1);
     println!("----PART II ---------------------------------------");

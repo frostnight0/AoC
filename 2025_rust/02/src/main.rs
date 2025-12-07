@@ -116,7 +116,7 @@ fn main() -> std::io::Result<()> {
     let file_1st = std::fs::read_to_string(filename_1st)?;
     let file_2nd = std::fs::read_to_string(filename_2nd)?;
 
-    println!("--- PART I -----------------------------------------");
+    println!("--- PART I ----------------------------------------");
     run(&filename_1st, &file_1st, 1);
     run(&filename_2nd, &file_2nd, 1);
     println!("----PART II ---------------------------------------");
