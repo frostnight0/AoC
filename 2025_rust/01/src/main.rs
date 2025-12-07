@@ -1,4 +1,4 @@
-fn zeros(filename: &str) -> std::io::Result<(i32, i32)> {
+fn zeros(filename: &str, mode: u8) -> std::io::Result<i32> {
     let file = std::fs::read_to_string(filename)?;
 
     let mut i = 50;
@@ -37,20 +37,36 @@ fn zeros(filename: &str) -> std::io::Result<(i32, i32)> {
         }
     }
     // println!("{t} {z}");
-    Ok((z, t))
+    if mode == 1 {
+        return Ok(z);
+    } else if mode == 2 {
+        return Ok(t);
+    } else {
+        panic!("Error: unknown mode!");
+    }
 }
+
+fn run(filename: &str, mode: u8) {
+    use std::time::Instant;
+
+    let time = Instant::now();
+    let sum = zeros(&filename, mode).unwrap();
+    // println!("{} {:?}   took: {:>4.2}s", filename, sum, time.elapsed().as_secs_f64());
+    println!("{} {:>6}   took: {:>4.2}s", filename, sum, time.elapsed().as_secs_f64());
+}
+
 
 fn main() -> std::io::Result<()> {
     let file_1st = "1st.txt";
     let file_2nd = "2nd.txt";
 
-    let (z_1st, t_1st) = zeros(file_1st)?;
-    let (z_2nd, t_2nd) = zeros(file_2nd)?;
-
-    println!("--------------------------------------------");
-    println!("{file_1st}: {z_1st} {t_1st}");
-    println!("{file_2nd}: {z_2nd} {t_2nd}");
-    println!("--------------------------------------------");
+    println!("--- PART I -----------------------------------------");
+    run(&file_1st, 1);
+    run(&file_2nd, 1);
+    println!("----PART II ---------------------------------------");
+    run(&file_1st, 2);
+    run(&file_2nd, 2);
+    println!("---------------------------------------------------");
 
     Ok(())
 }

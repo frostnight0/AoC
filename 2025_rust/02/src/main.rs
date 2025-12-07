@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 fn process_range(start: i64, end: i64, mode: u8) -> Vec<i64> {
     let mut vector = Vec::<i64>::new();
 
@@ -101,19 +103,25 @@ fn comparator_2(s: &str) -> bool {
     final_equel
 }
 
+fn run(filename: &str, file: &str, mode: u8) {
+    let time = Instant::now();
+    let sum = id_sum(&file, mode);
+    println!("{} {:>13}   took: {:>4.2}s", filename, sum, time.elapsed().as_secs_f64());
+}
+
 fn main() -> std::io::Result<()> {
     let filename_1st = "1st.txt";
     let filename_2nd = "2nd.txt";
 
     let file_1st = std::fs::read_to_string(filename_1st)?;
     let file_2nd = std::fs::read_to_string(filename_2nd)?;
-    //
+
     println!("--- PART I -----------------------------------------");
-    println!("{filename_1st}: {}", id_sum(&file_1st, 1));
-    println!("{filename_2nd}: {}", id_sum(&file_2nd, 1));
+    run(&filename_1st, &file_1st, 1);
+    run(&filename_2nd, &file_2nd, 1);
     println!("----PART II ---------------------------------------");
-    println!("{filename_1st}: {}", id_sum(&file_1st, 2));
-    println!("{filename_2nd}: {}", id_sum(&file_2nd, 2));
+    run(&filename_1st, &file_1st, 2);
+    run(&filename_2nd, &file_2nd, 2);
     println!("---------------------------------------------------");
     
     Ok(())
