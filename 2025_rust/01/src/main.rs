@@ -51,10 +51,8 @@ fn run(filename: &str, mode: u8) {
 
     let time = Instant::now();
     let sum = zeros(&filename, mode).unwrap();
-    // println!("{} {:?}   took: {:>4.2}s", filename, sum, time.elapsed().as_secs_f64());
     println!("{} {:>6}   took: {:>4.2}s", filename, sum, time.elapsed().as_secs_f64());
 }
-
 
 fn main() -> std::io::Result<()> {
     let file_1st = "1st.txt";
