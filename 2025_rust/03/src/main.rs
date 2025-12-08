@@ -33,13 +33,11 @@ fn largest_joltage(line: &str, cells: usize) -> i64 {
         // println!("{:?}", slice_vector);
 
         let mut lnum = 0;
-        let mut lidx = 0;
         for idx in 0..(slice_vector.len()) {
             let val = slice_vector[idx];
             // println!("[{idx}] {val}");
             if lnum < val {
                 lnum = val;
-                lidx = idx;
                 let summ = idx + cell;
                 // println!("cell {cell} + idx {idx} = {summ}");
                 for n in 0..(summ + 1) {
@@ -47,7 +45,6 @@ fn largest_joltage(line: &str, cells: usize) -> i64 {
                 }
             }
         }
-        // println!("largest: [{lidx}]: {lnum}");
         rez.push(lnum);
     }
     // println!("rez: {:?}", rez);
