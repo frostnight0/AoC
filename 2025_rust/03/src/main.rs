@@ -1,15 +1,15 @@
-fn sum(file: &str, cells: usize) -> i64 {
+fn get_sum(file: &str, cells: usize) -> i64 {
     let mut sum: i64 = 0;
     for line in file.lines() {
         // println!("{line}");
-        sum += largest_joltage(&line, cells);
+        sum += get_largest_joltage(&line, cells);
     }
     // println!("{sum}");
 
     sum
 }
 
-fn largest_joltage(line: &str, cells: usize) -> i64 {
+fn get_largest_joltage(line: &str, cells: usize) -> i64 {
     // let cells: usize = 2;
 
     let mut vector = Vec::<i32>::new();
@@ -56,12 +56,18 @@ fn largest_joltage(line: &str, cells: usize) -> i64 {
     // println!("{num}");
     num
 }
-fn run(filename: &str, file: &str, cells: usize) {
+
+fn run_it(get_sum: fn(&str, usize) -> i64, file: &str, cells: usize) -> (i64, f64) {
     use std::time::Instant;
 
     let time = Instant::now();
-    let sum = sum(&file, cells);
-    println!("{}   sum:{:>17}   cells:{:>3}   took:{:>5.2}s", filename, sum, cells, time.elapsed().as_secs_f64());
+    let sum  = get_sum(&file, cells);
+    let took = time.elapsed().as_secs_f64();
+    (sum, took)
+}
+
+fn print_it(filename: &str, sum: i64, cells: usize, took: f64) {
+    println!("{}   sum:{:>17}   cells:{:>3}   took:{:>5.2}s", filename, sum, cells, took);
 }
 
 fn main() -> std::io::Result<()> {
@@ -72,13 +78,24 @@ fn main() -> std::io::Result<()> {
     let file_2nd = std::fs::read_to_string(filename_2nd)?;
 
     println!("--- PART I -----------------------------------------------");
-    run(&filename_1st, &file_1st, 2);
-    run(&filename_2nd, &file_2nd, 2);
+    let cells: usize = 2;
+
+    let (sum, took) = run_it(get_sum, &file_1st, cells);
+    print_it(filename_1st, sum, cells, took);
+
+    let (sum, took) = run_it(get_sum, &file_2nd, cells);
+    print_it(filename_2nd, sum, cells, took);
+
     println!("----PART II ----------------------------------------------");
-    run(&filename_1st, &file_1st, 12);
-    run(&filename_2nd, &file_2nd, 12);
+    let cells: usize = 12;
+
+    let (sum, took) = run_it(get_sum, &file_1st, cells);
+    print_it(filename_1st, sum, cells, took);
+    //
+    let (sum, took) = run_it(get_sum, &file_2nd, cells);
+    print_it(filename_2nd, sum, cells, took);
     println!("----------------------------------------------------------");
-    
+
     Ok(())
 }
 
