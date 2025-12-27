@@ -70,18 +70,45 @@ fn get_sum_of_fresh(id_ranges: Vec<(i64, i64)>, ids: Vec<i64>) -> i64 {
 fn get_sum_of_fresh_all(id_ranges: Vec<(i64, i64)>, ids: Vec<i64>) -> i64 {
     let mut ids_all: Vec<i64> = Vec::new();
 
-    for id_range in id_ranges.iter() {
-        let (start, end) = id_range;
-        println!("[{} : {}]", start, end);
-        for id in *start..=*end {
-            ids_all.push(id);
+    println!("{:?}", id_ranges);
+    
+    println!("len: {:?}", id_ranges.len());
+    
+    fn get_coliding(id_ranges: Vec<(i64, i64)>) -> usize {
+        let mut coliding = 0;
+        for r in 0..id_ranges.len() {
+            // println!("-----------------------------------");
+            // println!("r: {:?}", id_ranges[r]);
+        
+            let (r_start, r_end) = id_ranges[r];
+
+            for s in r+1..id_ranges.len() {
+                // println!("s: {:?}", id_ranges[s]);
+
+                let (s_start, s_end) = id_ranges[s];
+            
+                if r_start <= s_end && r_end >= s_start {
+                    // println!("coliding! {:?}", id_ranges[s]);
+                    coliding += 1;
+                }
+            }
         }
+        coliding
     }
 
-    ids_all.sort();
-    ids_all.dedup();
+    let coliding = get_coliding(id_ranges);
 
-    ids_all.len() as i64
+    println!("coliding: {}", coliding);
+
+    for i in 0..10 {
+        let mut good_ranges: Vec<(i64, i64)> = Vec::new();
+        let mut bad_ranges: Vec<(i64, i64)> = Vec::new();
+
+
+
+    }
+
+    0
 }
 
 fn run_it(get_sum: fn(Vec<(i64, i64)>, Vec<i64>) -> i64, id_ranges: Vec<(i64, i64)>, ids: Vec<i64>) -> (i64, f64) {
@@ -121,10 +148,10 @@ fn main() -> std::io::Result<()> {
     let (sum, took) = run_it(get_sum_of_fresh_all, id_ranges, ids);
     print_it(filename_1st, sum, took);
 
-    let (id_ranges, ids) = get_databoxes(&file_2nd);
+    // let (id_ranges, ids) = get_databoxes(&file_2nd);
 
-    let (sum, took) = run_it(get_sum_of_fresh_all, id_ranges, ids);
-    print_it(filename_2nd, sum, took);
+    // let (sum, took) = run_it(get_sum_of_fresh_all, id_ranges, ids);
+    // print_it(filename_2nd, sum, took);
 
     println!("----------------------------------------------------------");
 
