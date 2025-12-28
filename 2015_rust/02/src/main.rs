@@ -81,5 +81,7 @@ fn main() -> std::io::Result<()> {
     let took = time.elapsed().as_secs_f64();
     print_sum(filename, sum, took);
 
+    println!("----------------------------------------------------------");
+
     Ok(())
 }
