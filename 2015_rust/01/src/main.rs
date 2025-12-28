@@ -40,7 +40,7 @@ fn main() -> std::io::Result<()> {
     let file = std::fs::read_to_string(filename)?;
     let file = file.trim();
     let time = Instant::now();
-    let floor = get_floor(&file);
+    let floor = get_floor(file);
     let took = time.elapsed().as_secs_f64();
     print_floor(filename, floor, took);
 
@@ -48,7 +48,7 @@ fn main() -> std::io::Result<()> {
     let file = std::fs::read_to_string(filename)?;
     let file = file.trim();
     let time = Instant::now();
-    let floor = get_floor(&file);
+    let floor = get_floor(file);
     let took = time.elapsed().as_secs_f64();
     print_floor(filename, floor, took);
 
@@ -57,7 +57,7 @@ fn main() -> std::io::Result<()> {
     let file = std::fs::read_to_string(filename)?;
     let file = file.trim();
     let time = Instant::now();
-    let pos = get_basement_pos(&file);
+    let pos = get_basement_pos(file);
     let took = time.elapsed().as_secs_f64();
     print_pos(filename, pos, took);
 
@@ -65,7 +65,7 @@ fn main() -> std::io::Result<()> {
     let file = std::fs::read_to_string(filename)?;
     let file = file.trim();
     let time = Instant::now();
-    let pos = get_basement_pos(&file);
+    let pos = get_basement_pos(file);
     let took = time.elapsed().as_secs_f64();
     print_pos(filename, pos, took);
 
